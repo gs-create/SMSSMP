@@ -1,229 +1,45 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-Hant">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Parallelogram Area Lesson</title>
-<style>
-    /* --- CSS STYLING --- */
-    body {
-        font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif; /* Fun font for kids */
-        background-color: #e0f7fa;
-        color: #333;
-        margin: 0;
-        padding: 20px;
-    }
-    .container {
-        max-width: 800px;
-        margin: 0 auto;
-        background: white;
-        padding: 30px;
-        border-radius: 15px;
-        box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-    }
-    h1, h2 {
-        color: #006064;
-        text-align: center;
-    }
-    .highlight {
-        color: #d81b60;
-        font-weight: bold;
-    }
-    
-    /* Animation Section Styles */
-    .animation-box {
-        border: 3px dashed #00bcd4;
-        border-radius: 10px;
-        background-color: #fff;
-        text-align: center;
-        padding: 20px;
-        margin: 20px 0;
-        overflow: hidden;
-    }
-    button.action-btn {
-        background-color: #ff9800;
-        color: white;
-        border: none;
-        padding: 12px 24px;
-        font-size: 1.1rem;
-        border-radius: 50px;
-        cursor: pointer;
-        transition: transform 0.2s;
-        font-weight: bold;
-        margin-top: 10px;
-    }
-    button.action-btn:hover {
-        transform: scale(1.05);
-        background-color: #f57c00;
-    }
-
-    /* Exercises Styles */
-    .exercise {
-        background-color: #fff3e0;
-        border-left: 5px solid #ff9800;
-        padding: 15px;
-        margin-bottom: 15px;
-        border-radius: 5px;
-    }
-    input[type="number"] {
-        padding: 8px;
-        font-size: 1rem;
-        width: 80px;
-        border: 2px solid #ccc;
-        border-radius: 5px;
-    }
-    .feedback {
-        display: inline-block;
-        margin-left: 10px;
-        font-weight: bold;
-    }
-    .correct { color: #2e7d32; }
-    .incorrect { color: #c62828; }
-
-    /* SVG Animation Specifics */
-    svg {
-        max-width: 100%;
-        height: auto;
-    }
-    /* The triangle that moves */
-    #moving-triangle {
-        fill: #ffeb3b; /* Yellow */
-        stroke: #333;
-        stroke-width: 2;
-        transition: transform 2s ease-in-out; /* This creates the smooth slide */
-    }
-    /* The static body */
-    #static-shape {
-        fill: #4dd0e1; /* Blue */
-        stroke: #333;
-        stroke-width: 2;
-    }
-    /* Dashed line showing height */
-    .height-line {
-        stroke: #d81b60;
-        stroke-width: 2;
-        stroke-dasharray: 5,5;
-    }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Miss Lam's Testing and Sharing Space</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding-top: 50px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            color: #333;
+        }
+        .link-container {
+            margin-top: 30px;
+        }
+        a {
+            display: inline-block;
+            margin: 0 15px;
+            padding: 10px 20px;
+            text-decoration: none;
+            color: white;
+            background-color: #007bff;
+            border-radius: 5px;
+            font-size: 18px;
+        }
+        a:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
 
-<div class="container">
-    <header>
-        <h1>📐 Area of a Parallelogram</h1>
-        <p style="text-align: center; font-size: 1.2rem;">Primary 4 Maths Lesson</p>
-    </header>
+    <h1>Welcome to Miss Lam's Testing and Sharing Space</h1>
 
-    <hr>
-
-    <section>
-        <h2>1. The Magic Formula</h2>
-        <p>To find the area of a parallelogram, we don't need complex math. We just need two numbers:</p>
-        <ul>
-            <li>The <b>Base (b)</b>: The bottom line.</li>
-            <li>The <b>Height (h)</b>: The straight line from top to bottom (like measuring how tall you are!).</li>
-        </ul>
-        
-        <div style="text-align: center; background: #f1f1f1; padding: 10px; border-radius: 8px;">
-            <h3>The Formula:</h3>
-            <p style="font-size: 1.5rem;">$$Area = Base \times Height$$</p>
-            <p style="font-size: 1.5rem;">$$A = b \times h$$</p>
-        </div>
-    </section>
-
-    <section>
-        <h2>2. See it in Action!</h2>
-        <p>Why is the formula the same as a rectangle? Click the button below to cut the triangle and move it!</p>
-        
-        <div class="animation-box">
-            <svg width="500" height="200" viewBox="0 0 500 200">
-                <text x="220" y="180" font-family="sans-serif" font-weight="bold">Base</text>
-                <text x="115" y="100" font-family="sans-serif" font-weight="bold" fill="#d81b60">Height</text>
-
-                <path id="static-shape" d="M 150 50 L 350 50 L 350 150 L 150 150 Z" />
-
-                <path id="moving-triangle" d="M 150 50 L 100 150 L 150 150 Z" />
-                
-                <line x1="150" y1="50" x2="150" y2="150" class="height-line" />
-            </svg>
-
-            <br>
-            <button class="action-btn" onclick="toggleAnimation()">✂️ Cut & Move Triangle!</button>
-            <p id="anim-text">It looks like a parallelogram.</p>
-        </div>
-    </section>
-
-    
-
-    <section>
-        <h2>3. Your Turn to Practice</h2>
-        
-        <div class="exercise">
-            <p><b>Question 1:</b> Base = 8 cm, Height = 5 cm.</p>
-            <input type="number" id="q1" placeholder="Area?">
-            <button onclick="checkAnswer(1, 40)">Check</button>
-            <span id="fb1" class="feedback"></span>
-        </div>
-
-        <div class="exercise">
-            <p><b>Question 2:</b> Base = 10 m, Height = 12 m.</p>
-            <input type="number" id="q2" placeholder="Area?">
-            <button onclick="checkAnswer(2, 120)">Check</button>
-            <span id="fb2" class="feedback"></span>
-        </div>
-
-        <div class="exercise">
-            <p><b>Question 3 (Tricky!):</b> Base = 6 cm, Slanted Side = 7 cm, Height = 4 cm.</p>
-            <p><i>Hint: Ignore the slanted side!</i></p>
-            <input type="number" id="q3" placeholder="Area?">
-            <button onclick="checkAnswer(3, 24)">Check</button>
-            <span id="fb3" class="feedback"></span>
-        </div>
-    </section>
-
-</div>
-
-<script>
-    /* --- JAVASCRIPT LOGIC --- */
-
-    // Animation Logic
-    let isRectangle = false;
-    
-    function toggleAnimation() {
-        const triangle = document.getElementById('moving-triangle');
-        const text = document.getElementById('anim-text');
-        const btn = document.querySelector('.action-btn');
-
-        if (!isRectangle) {
-            // Move triangle to the right (200px is the width of the rectangle part)
-            triangle.style.transform = "translateX(200px)";
-            text.innerHTML = "Now it is a <b>RECTANGLE</b>! The area is still Base × Height.";
-            btn.textContent = "🔄 Reset Shape";
-            isRectangle = true;
-        } else {
-            // Move triangle back to start
-            triangle.style.transform = "translateX(0px)";
-            text.innerHTML = "It looks like a parallelogram.";
-            btn.textContent = "✂️ Cut & Move Triangle!";
-            isRectangle = false;
-        }
-    }
-
-    // Quiz Logic
-    function checkAnswer(qNum, correctAnswer) {
-        const input = document.getElementById('q' + qNum);
-        const feedback = document.getElementById('fb' + qNum);
-        const userVal = parseInt(input.value);
-
-        if (userVal === correctAnswer) {
-            feedback.textContent = "✅ Correct! Well done!";
-            feedback.className = "feedback correct";
-        } else {
-            feedback.textContent = "❌ Try again.";
-            feedback.className = "feedback incorrect";
-        }
-    }
-</script>
+    <div class="link-container">
+        <a href="page1.html">前往 Page 1</a>
+        <a href="page2.html">前往 Page 2</a>
+    </div>
 
 </body>
 </html>
