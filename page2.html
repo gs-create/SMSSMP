@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Area of a Parallelogram 📐</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Area of a Parallelogram: P4 Maths Fun!</h1>
+    </header>
+
+    <main>
+        <section id="definition">
+            <h2>What is a Parallelogram?</h2>
+            <p>It's a four-sided shape where opposite sides are parallel. We need the **Base (b)** and the **Height (h)** (the straight up-and-down distance!) to find the area.</p>
+            <div id="parallelogram-image-static">
+              
+            </div>
+        </section>
+
+        <section id="formula-animation">
+            <h2>Why is the Area $A = b \times h$?</h2>
+            <p>Watch how we can turn a parallelogram into a rectangle!</p>
+            <div id="animation-container">
+                </div>
+            <p class="formula-box">The Formula: **Area = Base × Height**</p>
+        </section>
+
+        <section id="examples">
+            <h2>Step-by-Step Examples</h2>
+            <div class="example">
+                <h3>Example 1:</h3>
+                <p>Base = 10 cm, Height = 5 cm.</p>
+                <p>Area = 10 cm $\times$ 5 cm = **50 $\text{cm}^2$**</p>
+            </div>
+            <div class="example">
+                <h3>Example 2 (Watch Out!):</h3>
+                <p>Base = 6 m, Slanted Side = 5 m, Height = 4 m.</p>
+                <p>We IGNORE the slanted side! Area = 6 m $\times$ 4 m = **24 $\text{m}^2$**</p>
+            </div>
+        </section>
+
+        <section id="exercises">
+            <h2>Practice Time! ✍️</h2>
+            <div class="quiz-item" data-answer="12">
+                <p>Question 1: Base = 4 units, Height = 3 units. Area =</p>
+                <input type="number" id="q1-input">
+                <button onclick="checkAnswer(1)">Check</button>
+                <p id="q1-feedback" class="feedback"></p>
+            </div>
+
+            <div class="quiz-item" data-answer="45">
+                <p>Question 2: Base = 9 cm, Height = 5 cm. Area =</p>
+                <input type="number" id="q2-input">
+                <button onclick="checkAnswer(2)">Check</button>
+                <p id="q2-feedback" class="feedback"></p>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
