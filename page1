@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiplication Master ✖️</title>
+    <style>
+        /* --- CSS STYLING --- */
+        :root {
+            --primary: #6200ea;
+            --secondary: #00bfa5;
+            --bg: #e0f7fa;
+            --card-bg: #ffffff;
+            --text: #37474f;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: var(--card-bg);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        h1 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-size: 1.8rem;
+        }
+
+        .score-board {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            font-weight: bold;
+            color: #555;
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        /* Vertical Math Layout */
+        .math-problem {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 3.5rem;
+            font-weight: bold;
+            text-align: right;
+            margin: 20px auto;
+            width: fit-content;
+            line-height: 1.2;
+            position: relative;
+        }
+
+        .operator {
+            position: absolute;
+            left: -40px;
+            bottom: 2px;
+        }
+
+        .line {
+            border-bottom: 4px solid #333;
+            margin-bottom: 10px;
+            margin-top: 5px;
+        }
+
+        /* Input and Buttons */
+        input[type="number"] {
+            font-size: 2rem;
+            padding: 10px;
+            width: 150px;
+            text-align: center;
+            border: 3px solid #ddd;
+            border-radius: 10px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        input[type="number"]:focus {
+            border-color: var(--primary);
+        }
+
+        /* Remove arrows from number input */
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        .btn-container {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        button {
+            padding: 12px 24px;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: transform 0.1s, background 0.2s;
+        }
+
+        .btn-submit {
+            background-color: var(--primary);
+            color: white;
+        }
+        .btn-submit:hover { background-color: #4d00c2; }
+
+        .btn-skip {
+            background-color: #ff9800;
+            color: white;
+        }
+
+        button:active {
+            transform: scale(0.95);
+        }
+
+        /* Feedback Message */
+        .message {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            min-height: 1.5em;
+        }
+        .correct { color: #2e7d32; }
+        .wrong { color: #c62828; }
+
+        /* Confetti Animation (Simple CSS) */
+        @keyframes pop {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+        .animate-pop {
+            animation: pop 0.3s ease-in-out;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>⚡ Multiplication Master</h1>
+        
+        <div class="score-board">
+            <span>Score: <span id="score">0</span></span>
+            <span>Streak: 🔥 <span id="streak">0</span></span>
+        </div>
+
+        <div class="math-problem">
+            <div id="top-number">00</div>
+            <div><span class="operator">&times;</span> <span id="bottom-number">0</span></div>
+            <div class="line"></div>
+        </div>
+
+        <div>
+            <input type="number" id="answer-input" placeholder="?" autocomplete="off">
+        </div>
+
+        <div class="btn-container">
+            <button class="btn-submit" onclick="checkAnswer()">Check Answer</button>
+            <button class="btn-skip" onclick="newProblem()">Skip</button>
+        </div>
+
+        <div id="feedback" class="message">Good luck!</div>
+    </div>
+
+    <script>
+        // --- JAVASCRIPT LOGIC ---
+
+        let currentTop = 0;
+        let currentBottom = 0;
+        let score = 0;
+        let streak = 0;
+
+        // Initialize the game
+        document.addEventListener('DOMContentLoaded', () => {
+            newProblem();
+            
+            // Allow pressing "Enter" key to submit
+            document.getElementById("answer-input").addEventListener("keypress", function(event) {
+                if (event.key === "Enter") {
+                    checkAnswer();
+                }
+            });
+        });
+
+        function generateRandomNumber(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        function newProblem() {
+            // Generate 2-digit number (10 to 99)
+            currentTop = generateRandomNumber(10, 99);
+            
+            // Generate 1-digit number (2 to 9) - we exclude 0 and 1 as they are too easy
+            currentBottom = generateRandomNumber(2, 9);
+
+            // Update UI
+            document.getElementById('top-number').textContent = currentTop;
+            document.getElementById('bottom-number').textContent = currentBottom;
+            document.getElementById('answer-input').value = '';
+            document.getElementById('answer-input').focus();
+            document.getElementById('feedback').textContent = "What is the answer?";
+            document.getElementById('feedback').className = "message";
+        }
+
+        function checkAnswer() {
+            const input = document.getElementById('answer-input');
+            const feedback = document.getElementById('feedback');
+            const userAns = parseInt(input.value);
+            const correctAns = currentTop * currentBottom;
+
+            if (input.value === '') {
+                feedback.textContent = "Please type a number first! 🔢";
+                feedback.className = "message wrong";
+                return;
+            }
+
+            if (userAns === correctAns) {
+                // Correct Answer
+                score += 10;
+                streak++;
+                feedback.innerHTML = "✅ <b>Correct!</b> Great job!";
+                feedback.className = "message correct animate-pop";
+                
+                // Update stats
+                updateStats();
+                
+                // Wait a moment then generate new problem
+                setTimeout(newProblem, 1500);
+            } else {
+                // Wrong Answer
+                streak = 0;
+                feedback.innerHTML = "❌ Oops! Try again.";
+                feedback.className = "message wrong animate-pop";
+                updateStats();
+                input.select(); // Select text so they can easily type over it
+            }
+        }
+
+        function updateStats() {
+            document.getElementById('score').textContent = score;
+            document.getElementById('streak').textContent = streak;
+        }
+    </script>
+</body>
+</html>
